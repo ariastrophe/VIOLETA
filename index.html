@@ -7,31 +7,68 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Violeta 🌿 — Cuida tus plantas</title>
+<!-- V20 — Refined: calm narrative UX, no social-proof nudgets, 2026 design trends -->
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --sage-50:#F4F8EF;--sage-100:#E6F0DA;--sage-200:#CCDEB5;--sage-300:#A8C48A;
-  --sage-400:#7DA85C;--sage-500:#5C8A3A;--sage-600:#3F6B22;--sage-700:#2B4F14;
-  --warm:#FAFAF6;--white:#FFFFFF;--cream:#EDE8DF;--cream2:#E8E2D6;
-  --v50:#F6F1FC;--v100:#EAD9F8;--v200:#CDA8EE;--v300:#AE75E2;
-  --v400:#8F4DD4;--v500:#7030B8;--v600:#5A2296;--v700:#421472;
-  --ok:#1A7A4A;--ok-bg:#E6F5EE;--ok-border:#8DCCA8;
-  --warn:#8A5000;--warn-bg:#FFF4E0;--warn-border:#F5C76A;
-  --err:#C41A2F;--err-bg:#FFEBEE;--err-border:#F3909E;
-  --txt:#18140F;--txt2:#3A342A;--txth:#6A6058;
+  --sage-50:#F2F7EC;--sage-100:#E3EED5;--sage-200:#C8DCAC;--sage-300:#A3C283;
+  --sage-400:#78A554;--sage-500:#578733;--sage-600:#3B681E;--sage-700:#274D10;
+  --warm:#F8F6F1;--white:#FFFFFF;--cream:#EAE4D9;--cream2:#E3DDD0;
+  --v50:#F5F0FB;--v100:#E8D6F7;--v200:#C9A4EC;--v300:#AA72DF;
+  --v400:#8A48CC;--v500:#6D2CB4;--v600:#561F96;--v700:#3E1370;
+  --ok:#187A49;--ok-bg:#E4F4EE;--ok-border:#85C9A3;
+  --warn:#875200;--warn-bg:#FFF3DC;--warn-border:#F3C163;
+  --err:#BF1929;--err-bg:#FDEAED;--err-border:#F08896;
+  --txt:#16110C;--txt2:#362E24;--txth:#65594E;
   --r:16px;--rsm:10px;--rxs:6px;--rpill:100px;
-  --sh-sm:0 1px 6px rgba(30,20,0,.08);
-  --sh-md:0 4px 16px rgba(30,20,0,.11);
-  --sh-lg:0 8px 28px rgba(30,20,0,.15);
-  --sh-xl:0 16px 48px rgba(30,20,0,.20);
+  --sh-sm:0 1px 8px rgba(22,17,12,.07);
+  --sh-md:0 4px 18px rgba(22,17,12,.10);
+  --sh-lg:0 8px 32px rgba(22,17,12,.14);
+  --sh-xl:0 16px 52px rgba(22,17,12,.19);
   --ease:cubic-bezier(.4,0,.2,1);
   --spring:cubic-bezier(.34,1.56,.64,1);
+  --organic:cubic-bezier(.17,.67,.35,1.12);
   --ff:'Fraunces',serif;--fb:'DM Sans',sans-serif;
 }
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes pulseDanger{0%,100%{box-shadow:0 0 0 0 rgba(191,25,41,.4)}70%{box-shadow:0 0 0 6px rgba(191,25,41,0)}}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes seedPop{0%{opacity:0;transform:scale(.5) translateY(8px)}70%{transform:scale(1.08) translateY(-2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes narrativeFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── DARK MODE ── */
+@media(prefers-color-scheme:dark){body:not(.theme-light){--warm:#13110E;--white:#1C1915;--cream:#262117;--cream2:#302819;--txt:#F0EBE3;--txt2:#C8BFAE;--txth:#8A7E70;--sage-50:#131A0C;--sage-100:#1C2812;--v50:#1A1024;--v100:#251635;--sh-sm:0 1px 8px rgba(0,0,0,.3);--sh-md:0 4px 18px rgba(0,0,0,.4);--sh-lg:0 8px 32px rgba(0,0,0,.5)}}
+body.theme-dark{--warm:#13110E;--white:#1C1915;--cream:#262117;--cream2:#302819;--txt:#F0EBE3;--txt2:#C8BFAE;--txth:#8A7E70;--sage-50:#131A0C;--sage-100:#1C2812;--v50:#1A1024;--v100:#251635;--sh-sm:0 1px 8px rgba(0,0,0,.3);--sh-md:0 4px 18px rgba(0,0,0,.4);--sh-lg:0 8px 32px rgba(0,0,0,.5)}
+body.theme-light{--warm:#F8F6F1;--white:#FFFFFF;--cream:#EAE4D9;--cream2:#E3DDD0;--txt:#16110C;--txt2:#362E24;--txth:#65594E;--sage-50:#F2F7EC;--sage-100:#E3EED5;--v50:#F5F0FB;--v100:#E8D6F7;--sh-sm:0 1px 8px rgba(22,17,12,.07);--sh-md:0 4px 18px rgba(22,17,12,.10);--sh-lg:0 8px 32px rgba(22,17,12,.14)}
+/* Smooth theme transition */
+*{transition:background-color .25s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease}
+.plant-card svg *,.scan-zone *{transition:none}
+/* Dark overrides for specific elements */
+body.theme-dark .home-hdr{background:linear-gradient(165deg,#1a2810 0%,#161210 55%,#13110E 100%)}
+body.theme-dark .home-hdr::after{background:radial-gradient(ellipse 80% 55% at 94% -10%,rgba(90,140,60,.18) 0%,transparent 65%)}
+body.theme-dark .garden-mood{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+body.theme-dark .sbar{background:#1C1915}
+body.theme-dark .bnav{background:#1C1915;border-top-color:#262117}
+body.theme-dark .diag-hdr{background:linear-gradient(160deg,#1e1230 0%,#131a0c 70%,#13110e 100%)}
+body.theme-dark .frame{background:#13110E}
+body.theme-dark .ob-step{background:#13110E}
+body.theme-dark .screen{background:#13110E}
+body.theme-dark .screen.root{background:#131A0C}
+body.theme-dark input,body.theme-dark textarea{background:#262117;color:var(--txt);border-color:var(--cream)}
+body.theme-dark ::placeholder{color:#6A5E52}
+body.theme-dark .card{border-color:#2A2218}
+body.theme-dark .plant-card{border-color:#2A2218}
+body.theme-dark .task-item{border-color:#2A2218;background:#1C1915}
+body.theme-dark .nc-care-opt{border-color:#2A2218;background:#1C1915}
+body.theme-dark .nc-freq-opt{border-color:#2A2218;background:#1C1915}
+body.theme-dark .hub-sheet{background:#1C1915}
+body.theme-dark .bnav{box-shadow:0 -2px 20px rgba(0,0,0,.5)}
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{height:100%;height:-webkit-fill-available;overflow:hidden}
 body{
   font-family:var(--fb);background:#B8CCA0;
+  transition:background .25s ease;
   height:100%;height:-webkit-fill-available;
   min-height:100dvh;
   overflow:hidden;display:flex;align-items:center;justify-content:center;
@@ -41,10 +78,12 @@ body{
   width:390px;height:844px;background:var(--warm);
   border-radius:48px;overflow:hidden;position:relative;
   display:flex;flex-direction:column;
-  box-shadow:0 0 0 10px #141a0C,var(--sh-xl);
-  border:1.5px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 11px #141a0C,var(--sh-xl);
+  border:1.5px solid rgba(255,255,255,.14);
 }
 /* ── FULL MOBILE RESPONSIVE ── */
+body.theme-dark{background:#0E1309}
+body.theme-light{background:#B8CCA0}
 @media(max-height:880px),(max-width:430px){
   .frame{
     width:100vw;width:100dvw;
@@ -165,7 +204,7 @@ body{
 
 /* ── SECTION HEADER ── */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;margin-bottom:10px}
-.sec-title{font-family:var(--ff);font-size:17px;font-weight:600;color:var(--txt)}
+.sec-title{font-family:var(--ff);font-size:18px;font-weight:600;color:var(--txt);letter-spacing:-.01em}
 .sec-link{font-size:13px;color:var(--v500);font-weight:600;cursor:pointer}
 
 /* ── PILL TAG ── */
@@ -210,14 +249,19 @@ body{
 
 /* ── SCREEN: HOME ── */
 .home-hdr{
-  background:linear-gradient(180deg,var(--sage-100) 0%,var(--sage-50) 100%);
-  padding:28px 20px 20px;
+  background:linear-gradient(165deg,var(--sage-100) 0%,var(--sage-50) 55%,var(--warm) 100%);
+  padding:28px 20px 18px;position:relative;overflow:hidden;
 }
-.home-hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.home-hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
 .greeting{font-family:var(--ff);font-size:26px;font-weight:700;color:var(--txt);line-height:1.1}
 .greeting-sub{font-size:13px;color:var(--txth);margin-top:2px}
 .hdr-ico-btn{width:40px;height:40px;border-radius:50%;background:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-sm);color:var(--txt2)}
 .hdr-ico-btn:active{opacity:.65}
+/* Garden mood — 2026 narrative bar */
+.garden-mood{margin-top:12px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.88);display:flex;align-items:center;gap:10px;animation:narrativeFade .38s var(--ease) .1s both}
+.gm-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;animation:breathe 2.6s ease-in-out infinite}
+.gm-text{font-size:13px;font-weight:600;color:var(--txt2);line-height:1.4;flex:1}
+.gm-link{font-size:12px;font-weight:700;color:var(--v500);white-space:nowrap;cursor:pointer}
 
 /* Alert card */
 .alert-card{
@@ -231,21 +275,9 @@ body{
 .alert-body{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
 
 /* Semaforo chips */
-.sem-row{display:flex;gap:8px;padding:0 20px;margin-bottom:16px}
-.sem-chip{
-  flex:1;border-radius:var(--r);padding:12px;cursor:pointer;
-  transition:all .18s var(--ease);border:1.5px solid transparent;
-  text-align:center;
-}
-.sem-chip:active{transform:scale(.96)}
-.sem-chip.ok{background:var(--ok-bg);border-color:var(--ok-border)}
-.sem-chip.warn{background:var(--warn-bg);border-color:var(--warn-border)}
-.sem-chip.err{background:var(--err-bg);border-color:var(--err-border)}
-.sem-n{font-size:22px;font-weight:800;display:block;line-height:1}
-.sem-l{font-size:10px;font-weight:700;margin-top:3px;display:block}
-.sem-chip.ok .sem-n,.sem-chip.ok .sem-l{color:var(--ok)}
-.sem-chip.warn .sem-n,.sem-chip.warn .sem-l{color:var(--warn)}
-.sem-chip.err .sem-n,.sem-chip.err .sem-l{color:var(--err)}
+.sem-row{display:none!important}
+.sem-chip{display:none!important}
+.sem-n,.sem-l{display:none!important}
 
 /* Task strip */
 .task-strip{margin:0 20px 16px;display:flex;flex-direction:column;gap:8px}
@@ -258,7 +290,7 @@ body{
 .task-item:active{transform:scale(.98);opacity:.8}
 .task-item.done{opacity:.45}
 .task-ico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.task-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--cream2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s var(--spring)}
+.task-check{width:30px;height:30px;border-radius:50%;border:2px solid var(--cream2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .22s var(--spring)}
 .task-item.done .task-check{background:var(--ok);border-color:var(--ok)}
 .task-txt{flex:1;min-width:0}
 .task-name{font-size:14px;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -274,7 +306,8 @@ body{
 }
 .plant-card:active{transform:scale(.96);box-shadow:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.pc-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:12px;position:relative}
+.pc-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:12px;position:relative;overflow:hidden}
+.pc-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(transparent,rgba(0,0,0,.06));pointer-events:none}
 .pc-img svg{width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.12))}
 .pc-dot{position:absolute;top:9px;right:9px;width:10px;height:10px;border-radius:50%;border:2px solid #fff}
 .pc-dot.ok{background:var(--ok)}
@@ -287,8 +320,8 @@ body{
 
 /* ── SCREEN: DIAGNÓSTICO ── */
 .diag-hdr{
-  background:linear-gradient(180deg,var(--v100) 0%,var(--sage-50) 100%);
-  padding:28px 20px 24px;text-align:center;
+  background:linear-gradient(160deg,var(--v100) 0%,var(--sage-50) 70%,var(--warm) 100%);
+  padding:28px 20px 20px;text-align:center;position:relative;
 }
 .scan-zone{
   margin:20px;border-radius:24px;overflow:hidden;
@@ -312,8 +345,10 @@ body{
   content:'';position:absolute;inset:-8px;border-radius:50%;
   border:2px solid rgba(255,255,255,.2);
 }
-@keyframes scanPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}50%{box-shadow:0 0 0 16px rgba(255,255,255,0)}}
-.scan-ring.active{animation:scanPulse 1.4s infinite}
+@keyframes scanPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.38)}50%{box-shadow:0 0 0 18px rgba(255,255,255,0)}}
+@keyframes scanGlow{0%,100%{opacity:1}50%{opacity:.6}}
+.scan-ring.active{animation:scanPulse 1.6s ease-in-out infinite}
+.scan-ring:not(.active){animation:scanGlow 2.4s ease-in-out infinite}
 .scan-label{color:#fff;font-size:15px;font-weight:600;text-align:center}
 .scan-bar{
   position:absolute;top:0;left:0;right:0;height:3px;
@@ -604,10 +639,10 @@ body{
 
 /* ── SCREEN: HOME ── */
 .home-hdr{
-  background:linear-gradient(180deg,var(--sage-100) 0%,var(--sage-50) 100%);
-  padding:28px 20px 20px;
+  background:linear-gradient(165deg,var(--sage-100) 0%,var(--sage-50) 55%,var(--warm) 100%);
+  padding:28px 20px 18px;position:relative;overflow:hidden;
 }
-.home-hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.home-hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
 .greeting{font-family:var(--ff);font-size:26px;font-weight:700;color:var(--txt);line-height:1.1}
 .greeting-sub{font-size:13px;color:var(--txth);margin-top:2px}
 .hdr-ico-btn{width:40px;height:40px;border-radius:50%;background:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-sm);color:var(--txt2)}
@@ -625,21 +660,9 @@ body{
 .alert-body{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
 
 /* Semaforo chips */
-.sem-row{display:flex;gap:8px;padding:0 20px;margin-bottom:16px}
-.sem-chip{
-  flex:1;border-radius:var(--r);padding:12px;cursor:pointer;
-  transition:all .18s var(--ease);border:1.5px solid transparent;
-  text-align:center;
-}
-.sem-chip:active{transform:scale(.96)}
-.sem-chip.ok{background:var(--ok-bg);border-color:var(--ok-border)}
-.sem-chip.warn{background:var(--warn-bg);border-color:var(--warn-border)}
-.sem-chip.err{background:var(--err-bg);border-color:var(--err-border)}
-.sem-n{font-size:22px;font-weight:800;display:block;line-height:1}
-.sem-l{font-size:10px;font-weight:700;margin-top:3px;display:block}
-.sem-chip.ok .sem-n,.sem-chip.ok .sem-l{color:var(--ok)}
-.sem-chip.warn .sem-n,.sem-chip.warn .sem-l{color:var(--warn)}
-.sem-chip.err .sem-n,.sem-chip.err .sem-l{color:var(--err)}
+.sem-row{display:none!important}
+.sem-chip{display:none!important}
+.sem-n,.sem-l{display:none!important}
 
 /* Task strip */
 .task-strip{margin:0 20px 16px;display:flex;flex-direction:column;gap:8px}
@@ -652,7 +675,7 @@ body{
 .task-item:active{transform:scale(.98);opacity:.8}
 .task-item.done{opacity:.45}
 .task-ico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.task-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--cream2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s var(--spring)}
+.task-check{width:30px;height:30px;border-radius:50%;border:2px solid var(--cream2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .22s var(--spring)}
 .task-item.done .task-check{background:var(--ok);border-color:var(--ok)}
 .task-txt{flex:1;min-width:0}
 .task-name{font-size:14px;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -668,7 +691,8 @@ body{
 }
 .plant-card:active{transform:scale(.96);box-shadow:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.pc-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:12px;position:relative}
+.pc-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:12px;position:relative;overflow:hidden}
+.pc-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(transparent,rgba(0,0,0,.06));pointer-events:none}
 .pc-img svg{width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.12))}
 .pc-dot{position:absolute;top:9px;right:9px;width:10px;height:10px;border-radius:50%;border:2px solid #fff}
 .pc-dot.ok{background:var(--ok)}
@@ -681,8 +705,8 @@ body{
 
 /* ── SCREEN: DIAGNÓSTICO ── */
 .diag-hdr{
-  background:linear-gradient(180deg,var(--v100) 0%,var(--sage-50) 100%);
-  padding:28px 20px 24px;text-align:center;
+  background:linear-gradient(160deg,var(--v100) 0%,var(--sage-50) 70%,var(--warm) 100%);
+  padding:28px 20px 20px;text-align:center;position:relative;
 }
 .scan-zone{
   margin:20px;border-radius:24px;overflow:hidden;
@@ -706,8 +730,10 @@ body{
   content:'';position:absolute;inset:-8px;border-radius:50%;
   border:2px solid rgba(255,255,255,.2);
 }
-@keyframes scanPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}50%{box-shadow:0 0 0 16px rgba(255,255,255,0)}}
-.scan-ring.active{animation:scanPulse 1.4s infinite}
+@keyframes scanPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.38)}50%{box-shadow:0 0 0 18px rgba(255,255,255,0)}}
+@keyframes scanGlow{0%,100%{opacity:1}50%{opacity:.6}}
+.scan-ring.active{animation:scanPulse 1.6s ease-in-out infinite}
+.scan-ring:not(.active){animation:scanGlow 2.4s ease-in-out infinite}
 .scan-label{color:#fff;font-size:15px;font-weight:600;text-align:center}
 .scan-bar{
   position:absolute;top:0;left:0;right:0;height:3px;
@@ -1491,7 +1517,7 @@ body{
   display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .vs-body{flex:1}
 .vs-label{font-size:10px;font-weight:800;color:var(--v500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.vs-text{font-size:13px;color:var(--v700);line-height:1.5;font-weight:600}
+.vs-text{font-size:13px;color:var(--v700);line-height:1.55;font-weight:500}
 
 /* ── REGISTRO SUCCESS CARD ── */
 .reg-success{background:var(--warm);display:flex;flex-direction:column;align-items:center;padding:32px 24px 28px;text-align:center}
@@ -1522,30 +1548,38 @@ body{
     <!-- OB-0: Promesa emocional -->
     <div class="ob-step active" id="ob0">
       <div class="ob-hero" style="background:linear-gradient(180deg,var(--sage-100) 0%,var(--warm) 100%)">
-        <div class="ob-plant-big">
+        <div class="ob-plant-big" style="animation:floatUp 4s ease-in-out infinite">
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-            <circle cx="100" cy="100" r="100" fill="var(--sage-100)"/>
+            <defs>
+              <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#D8ECC4"/>
+                <stop offset="100%" stop-color="#C0D9A6"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="100" fill="url(#bgGrad)"/>
             <!-- pot -->
-            <path d="M60 148 Q57 178 140 178 Q143 148 140 148Z" fill="#C8845A"/>
-            <rect x="56" y="138" width="88" height="14" rx="6" fill="#D4936A"/>
-            <ellipse cx="100" cy="138" rx="44" ry="8" fill="#E0A882"/>
-            <ellipse cx="100" cy="138" rx="36" ry="6" fill="#4A2A10"/>
+            <path d="M60 148 Q57 182 140 182 Q143 148 140 148Z" fill="#C27C4F"/>
+            <rect x="55" y="137" width="90" height="14" rx="7" fill="#D08A5E"/>
+            <ellipse cx="100" cy="137" rx="45" ry="8" fill="#E0A882"/>
+            <ellipse cx="100" cy="137" rx="37" ry="6" fill="#4A2A10"/>
             <!-- stem -->
-            <line x1="100" y1="138" x2="100" y2="90" stroke="#3D6B25" stroke-width="5" stroke-linecap="round"/>
-            <!-- big leaves -->
-            <path d="M100 110 C82 90 42 80 34 56 C26 34 46 22 64 34 C72 38 82 52 100 110Z" fill="#4A8C35"/>
-            <path d="M100 105 C118 85 158 75 166 51 C174 29 154 17 136 29 C128 33 118 47 100 105Z" fill="#5A9E40"/>
-            <path d="M100 140 C100 140 80 120 60 132" stroke="#3D6B25" stroke-width="2" fill="none" stroke-linecap="round" opacity=".4"/>
-            <!-- small leaf top -->
-            <ellipse cx="100" cy="82" rx="14" ry="9" fill="#6BBD50" transform="rotate(-10 100 82)"/>
-            <!-- flower hints -->
-            <circle cx="38" cy="52" r="8" fill="#E84393" opacity=".7"/>
-            <circle cx="162" cy="47" r="6" fill="#E84393" opacity=".5"/>
+            <line x1="100" y1="137" x2="100" y2="88" stroke="#376420" stroke-width="5" stroke-linecap="round"/>
+            <!-- big leaves with richer color -->
+            <path d="M100 112 C80 90 38 79 30 52 C22 28 44 18 64 32 C73 38 84 54 100 112Z" fill="#4A8C35" opacity=".95"/>
+            <path d="M100 106 C120 84 162 73 170 46 C178 22 156 12 136 26 C127 32 116 48 100 106Z" fill="#5EA640"/>
+            <path d="M100 142 C100 142 78 122 58 134" stroke="#376420" stroke-width="2" fill="none" stroke-linecap="round" opacity=".3"/>
+            <!-- small top leaf -->
+            <ellipse cx="100" cy="80" rx="15" ry="10" fill="#72CC52" transform="rotate(-8 100 80)"/>
+            <!-- flower accents -->
+            <circle cx="36" cy="50" r="9" fill="#D63A87" opacity=".65"/>
+            <circle cx="163" cy="44" r="7" fill="#D63A87" opacity=".45"/>
+            <!-- highlight -->
+            <circle cx="82" cy="60" r="4" fill="rgba(255,255,255,.3)"/>
           </svg>
         </div>
-        <div style="font-size:12px;font-weight:700;color:var(--sage-600);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">¡Bienvenida a Violeta! 🌿</div>
-        <h1 class="h1" style="margin-bottom:10px">El jardín que<br>siempre quisiste.</h1>
-        <p class="sub" style="max-width:280px">Cuida tus plantas con ayuda de IA, recordatorios inteligentes y consejos personalizados — sin necesitar experiencia previa.</p>
+        <div style="font-size:11px;font-weight:800;color:var(--sage-600);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Violeta 🌿</div>
+        <h1 class="h1" style="margin-bottom:10px;font-size:30px">Tu jardín,<br>bien cuidado.</h1>
+        <p class="sub" style="max-width:268px;font-size:14px;line-height:1.6">Diagnostica problemas, recibe guías personalizadas y registra cada cuidado — todo en un lugar, con ayuda de IA.</p>
       </div>
       <div class="ob-ctas">
         <div class="ob-dots">
@@ -1554,7 +1588,7 @@ body{
           <div class="ob-dot" id="od2"></div>
           <div class="ob-dot" id="od3"></div>
         </div>
-        <button class="btn btn-primary btn-full" onclick="obGo(1)">Descubrir Violeta →</button>
+        <button class="btn btn-primary btn-full" onclick="obGo(1)" style="font-size:16px;min-height:56px">Empezar →</button>
         <button class="btn btn-ghost btn-full" onclick="obSkip()">Entrar sin registrarme →</button>
       </div>
     </div>
@@ -1574,29 +1608,27 @@ body{
       </div>
       <div style="padding:20px 24px 0">
         <h2 class="h2" style="margin-bottom:6px">Todo lo que<br>tus plantas necesitan</h2>
-        <p class="sub">Tres herramientas en una sola app.</p>
+        <p class="sub">Sin necesitar experiencia previa.</p>
       </div>
-      <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px">
-        <div style="background:var(--v50);border-radius:18px;padding:18px;display:flex;gap:16px;align-items:flex-start;border:1px solid var(--v100)">
-          <div style="width:44px;height:44px;border-radius:12px;background:var(--v500);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px">🔬</div>
+      <div style="padding:16px 24px 8px;display:flex;flex-direction:column;gap:12px">
+        <div style="background:var(--v50);border-radius:20px;padding:20px;display:flex;gap:14px;align-items:flex-start;border:1px solid var(--v100)">
+          <div style="width:48px;height:48px;border-radius:14px;background:var(--v500);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px;box-shadow:0 4px 12px rgba(109,44,180,.3)">🔬</div>
           <div>
-            <div style="font-size:15px;font-weight:700;color:var(--txt);margin-bottom:3px">Diagnóstico con IA</div>
-            <div style="font-size:13px;color:var(--txth);line-height:1.5">Toma una foto y en segundos sabemos si tu planta tiene algún problema.</div>
+            <div style="font-size:15px;font-weight:700;color:var(--txt);margin-bottom:4px">Diagnóstico con IA</div>
+            <div style="font-size:13px;color:var(--txth);line-height:1.55">Toma una foto — en segundos detectamos hongos, plagas o deficiencias y te decimos qué hacer.</div>
           </div>
         </div>
-        <div style="background:var(--sage-50);border-radius:18px;padding:18px;display:flex;gap:16px;align-items:flex-start;border:1px solid var(--sage-100)">
-          <div style="width:44px;height:44px;border-radius:12px;background:var(--sage-600);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px">💧</div>
+        <div style="background:var(--sage-50);border-radius:20px;padding:20px;display:flex;gap:14px;align-items:flex-start;border:1px solid var(--sage-100)">
+          <div style="width:48px;height:48px;border-radius:14px;background:var(--sage-600);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px;box-shadow:0 4px 12px rgba(59,104,30,.25)">💧</div>
           <div>
-            <div style="font-size:15px;font-weight:700;color:var(--txt);margin-bottom:3px">Recordatorios inteligentes</div>
-            <div style="font-size:13px;color:var(--txth);line-height:1.5">Te avisamos exactamente cuándo regar, fertilizar o revisar cada planta.</div>
+            <div style="font-size:15px;font-weight:700;color:var(--txt);margin-bottom:4px">Cuidados con propósito</div>
+            <div style="font-size:13px;color:var(--txth);line-height:1.55">Recordatorios precisos, historial de cuidados y guías ajustadas a cada planta — todo sin complicaciones.</div>
           </div>
         </div>
-        <div style="background:var(--cream);border-radius:18px;padding:18px;display:flex;gap:16px;align-items:flex-start;border:1px solid var(--cream2)">
-          <div style="width:44px;height:44px;border-radius:12px;background:var(--txt);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px">📖</div>
-          <div>
-            <div style="font-size:15px;font-weight:700;color:var(--txt);margin-bottom:3px">Guías paso a paso</div>
-            <div style="font-size:13px;color:var(--txth);line-height:1.5">Aprende a cuidar cualquier planta con guías claras adaptadas a ti.</div>
-          </div>
+        <!-- Testimonial strip -->
+        <div style="padding:12px 16px;border-radius:14px;background:var(--cream);border:1px solid var(--cream2);display:flex;align-items:center;gap:10px">
+          <span style="font-size:20px">🌿</span>
+          <p style="font-size:12px;font-style:italic;color:var(--txth);line-height:1.5;margin:0">"Violeta me ayudó a salvar mi Monstera en 3 días. No sabía que tenía oídio." — Mariana, Bogotá</p>
         </div>
       </div>
       <div class="ob-ctas" style="padding-top:0">
@@ -1679,8 +1711,8 @@ body{
             </svg>
           </div>
           <div>
-            <div class="health-score" style="color:var(--warn)">62%</div>
-            <div style="font-size:12px;color:var(--txth);margin-top:2px">Salud detectada</div>
+            <div class="health-score" style="color:var(--warn);font-size:32px">Necesita ayuda</div>
+            <div style="font-size:12px;color:var(--txth);margin-top:2px">Problema detectado</div>
             <div class="health-bar-bg" style="width:120px;margin:8px 0 0">
               <div class="health-bar-fill" style="width:62%;background:linear-gradient(90deg,var(--warn),#F5A623)"></div>
             </div>
@@ -1696,17 +1728,21 @@ body{
             </div>
           </div>
         </div>
-        <!-- Acción -->
+        <!-- Acción — narrative-first, clear next step -->
         <div class="action-card" style="margin-bottom:12px">
-          <div style="font-size:12px;font-weight:700;color:var(--txth);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Qué hacer ahora</div>
-          <div style="font-size:14px;font-weight:600;color:var(--txt)">Aplica fungicida cúprico diluido en agua.</div>
-          <div style="font-size:12px;color:var(--txth);margin-top:4px">Una vez por semana, durante 3 semanas.</div>
+          <div style="font-size:11px;font-weight:800;color:var(--txth);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Tu primer paso</div>
+          <div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:4px">Aplica fungicida cúprico diluido (1:10)</div>
+          <div style="font-size:12px;color:var(--txth);line-height:1.5">Una vez a la semana · 3 semanas · Reducir riego mientras tanto</div>
+          <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+            <span class="tag tag-sage">💧 Menos riego</span>
+            <span class="tag tag-sage">🌬 Mejor ventilación</span>
+          </div>
         </div>
 
       </div>
       <div class="ob-ctas" style="padding-top:0">
-        <button class="btn btn-primary btn-full" onclick="obGo(4)">Continuar →</button>
-        <button class="btn btn-ghost btn-full" onclick="obGo(5)" style="color:var(--txth)">Omitir recordatorios →</button>
+        <button class="btn btn-primary btn-full" onclick="obGo(4)">Configurar recordatorios →</button>
+        <button class="btn btn-ghost btn-full" onclick="obGo(5)" style="color:var(--txth)">Omitir por ahora →</button>
       </div>
     </div>
 
@@ -1870,6 +1906,12 @@ body{
               </button>
             </div>
           </div>
+          <!-- Garden mood — narrative line replacing semáforo chips -->
+          <div class="garden-mood" id="gardenMood">
+            <div class="gm-dot" id="gardenMoodDot" style="background:var(--ok)"></div>
+            <span class="gm-text" id="gardenMoodText">Tu jardín está bien hoy</span>
+            <span class="gm-link" id="gardenMoodLink" onclick="goToTab('diag')" style="display:none">Ver →</span>
+          </div>
         </div>
 
         <!-- ALERTA URGENTE — solo si hay problema activo, sin duplicar con el strip -->
@@ -1886,17 +1928,17 @@ body{
 
         <!-- TAREA DEL DÍA — UN solo punto de acción visible -->
         <div id="taskSection" class="tasks-section">
-          <div class="sec-hdr" style="margin-top:4px">
-            <span class="sec-title">Hoy</span>
-            <span class="sec-link" onclick="goTo('sHistorial')">Historial</span>
+          <div class="sec-hdr" style="margin-top:8px">
+            <span class="sec-title" style="font-family:var(--ff);font-size:18px">Para hoy</span>
+            <span class="sec-link" onclick="goTo('sHistorial')" style="font-size:12px">Historial</span>
           </div>
           <div class="task-strip" id="taskStrip"></div>
         </div>
 
         <!-- JARDÍN -->
-        <div class="sec-hdr" style="margin-top:8px">
-          <span class="sec-title">Mi jardín</span>
-          <span class="sec-link" id="jardinCount"></span>
+        <div class="sec-hdr" style="margin-top:12px">
+          <span class="sec-title" style="font-family:var(--ff);font-size:18px">Mi jardín</span>
+          <span style="font-size:12px;color:var(--txth);font-weight:600" id="jardinCount"></span>
         </div>
         <div class="plants-grid" id="plantGrid" style="margin-bottom:80px"></div>
       </div>
@@ -1921,7 +1963,7 @@ body{
             <div class="scan-ring" id="diagScanRing">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
             </div>
-            <span class="scan-label" id="diagScanLabel">Escanear planta</span>
+            <span class="scan-label" id="diagScanLabel" style="font-size:16px">Toca para escanear</span>
           </div>
           <div class="scan-bar" id="diagScanBar"></div>
         </div>
@@ -1933,14 +1975,14 @@ body{
               <div style="display:flex;justify-content:space-between;align-items:center">
                 <div>
                   <div style="font-size:12px;font-weight:700;color:var(--txth);text-transform:uppercase;letter-spacing:.05em">Monstera deliciosa</div>
-                  <div style="font-size:24px;font-weight:800;font-family:var(--ff);color:var(--warn);margin-top:2px">Salud: 62%</div>
+                  <div style="font-size:22px;font-weight:700;font-family:var(--ff);color:var(--warn);margin-top:2px">Puede mejorar</div>
                 </div>
                 <div style="font-size:36px">🌿</div>
               </div>
               <div class="health-bar-bg">
                 <div class="health-bar-fill" id="healthBarFill" style="width:62%;background:linear-gradient(90deg,var(--warn),#F5A623)"></div>
               </div>
-              <div style="font-size:11px;color:var(--txth)">Mejorable — sigue las indicaciones para recuperarla.</div>
+              <div style="font-size:12px;color:var(--txth);line-height:1.5">Con los pasos correctos puede estar sana en pocas semanas.</div>
             </div>
 
             <div class="problem-card">
@@ -1954,7 +1996,7 @@ body{
             </div>
 
             <div class="action-card">
-              <div style="font-size:11px;font-weight:700;color:var(--txth);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Qué puedes hacer hoy</div>
+              <div style="font-size:11px;font-weight:800;color:var(--txth);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Tu plan de recuperación</div>
               <div style="font-size:14px;font-weight:600;color:var(--txt);line-height:1.5">Aplica fungicida cúprico diluido en agua (1:10). Una vez a la semana durante 3 semanas.</div>
               <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
                 <span class="tag tag-sage">💧 Reduce riego</span>
@@ -2038,25 +2080,12 @@ body{
           <button onclick="goBack()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:4px;margin-left:-4px;color:var(--txt);flex-shrink:0" onmousedown="this.style.opacity='.5'" onmouseup="this.style.opacity='1'">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <h2 class="h2" style="flex:1;font-size:18px">Alertas</h2>
+          <h2 style="flex:1;font-family:var(--ff);font-size:19px;font-weight:700;color:var(--txt)">Lo que necesita tu jardín</h2>
           <!-- Unread count badge — subtle -->
           <div id="saiUnreadBadge" style="display:none;background:var(--err);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:var(--rpill)">3</div>
         </div>
-        <!-- Three-stat strip — uses app color tokens, not inline white-on-purple -->
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 20px 4px" id="saiStatRow">
-          <div style="background:var(--err-bg);border:1px solid var(--err-border);border-radius:12px;padding:10px 8px;text-align:center">
-            <div style="font-size:20px;font-weight:800;font-family:var(--ff);color:var(--err)" id="saiStatUrgent">1</div>
-            <div style="font-size:10px;font-weight:600;color:var(--err);margin-top:2px">Urgentes</div>
-          </div>
-          <div style="background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:12px;padding:10px 8px;text-align:center">
-            <div style="font-size:20px;font-weight:800;font-family:var(--ff);color:var(--warn)" id="saiStatWarn">2</div>
-            <div style="font-size:10px;font-weight:600;color:var(--warn);margin-top:2px">Atención</div>
-          </div>
-          <div style="background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:12px;padding:10px 8px;text-align:center">
-            <div style="font-size:20px;font-weight:800;font-family:var(--ff);color:var(--ok)" id="saiStatOk">1</div>
-            <div style="font-size:10px;font-weight:600;color:var(--ok);margin-top:2px">Info</div>
-          </div>
-        </div>
+        <!-- Stat row removed — info lives in the alert cards themselves -->
+        <div id="saiStatRow" style="display:none"><span id="saiStatUrgent"></span><span id="saiStatWarn"></span><span id="saiStatOk"></span></div>
         <div id="saiContent" style="padding-bottom:32px"></div>
       </div>
 
@@ -2090,8 +2119,11 @@ body{
         <!-- PASO 1: Tipo de cuidado -->
         <div class="ap-step" id="ncs1" style="padding:20px 20px 32px">
           <p class="sub" style="margin-bottom:16px">¿Qué tipo de cuidado quieres registrar?</p>
-          <!-- Norma social contextual -->
-          <div id="ncNudge1" style="display:none"><div id="ncNudgePct"></div><div id="ncNudgeMsg"></div></div>
+          <!-- Guía cálida contextual — sin norma social -->
+          <div id="ncGuide1" style="display:none;margin-bottom:14px;padding:11px 14px;border-radius:12px;background:var(--sage-50);border:1px solid var(--sage-100);display:flex;gap:9px;align-items:flex-start">
+            <span style="font-size:16px;flex-shrink:0">🌿</span>
+            <span style="font-size:12px;color:var(--sage-700);line-height:1.5" id="ncGuideText">Consejo sobre el cuidado seleccionado.</span>
+          </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
             <div class="nc-care-opt" onclick="ncSelCare(this,'Riego','💧','water')" data-care="Riego" data-icon="💧" data-key="water">
               <div style="font-size:26px;margin-bottom:6px">💧</div>
@@ -2132,8 +2164,9 @@ body{
         <div class="ap-step" id="ncs2" style="padding:20px 20px 32px">
           <p class="sub" style="margin-bottom:14px">¿Con qué frecuencia lo harás?</p>
           <!-- Recomendación IA -->
-          <div id="ncFreqRec" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:12px;background:var(--sage-50);border:1px solid var(--sage-100);font-size:12px;color:var(--sage-700)">
-            <span style="font-weight:700">Violeta recomienda:</span> <span id="ncFreqRecText"></span>
+          <div id="ncFreqRec" style="display:none;margin-bottom:14px;padding:11px 14px;border-radius:12px;background:var(--v50);border:1px solid var(--v100);display:flex;gap:8px;align-items:flex-start">
+            <span style="font-size:15px;flex-shrink:0">💜</span>
+            <span style="font-size:12px;color:var(--v700);line-height:1.5"><strong>Para esta planta,</strong> <span id="ncFreqRecText"></span> funciona mejor</span>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px" id="ncFreqOpts">
             <div class="nc-freq-opt" onclick="ncSelFreq(this,'Cada día')">Cada día</div>
@@ -2193,7 +2226,7 @@ body{
             <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--cream)"><span style="font-size:12px;color:var(--txth)">Frecuencia</span><span style="font-size:13px;font-weight:700;color:var(--txt)" id="ncSumFreq">—</span></div>
             <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="font-size:12px;color:var(--txth)">Notificación</span><span style="font-size:13px;font-weight:700;color:var(--ok)">Activada</span></div>
           </div>
-          <div id="ncSocialNorm" style="display:none"><div id="ncSocialNormText"></div></div>
+          <!-- ncSocialNorm removed — warm message shown via ncOkNorm after confirmation -->
           <button class="btn btn-primary btn-full" onclick="ncConfirmar()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             Confirmar compromiso
@@ -3183,6 +3216,7 @@ body{
       <div class="screen" id="sConfig">
         <div style="position:sticky;top:0;z-index:50;background:var(--warm);padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--cream)">
           <button onclick="goBack()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:4px;margin-left:-4px;color:var(--txt);flex-shrink:0" onmousedown="this.style.opacity='.5'" onmouseup="this.style.opacity='1'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <span style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--txt);flex:1">Configuración</span>
         </div>
         <!-- Ciudad -->
         <div style="padding:18px 20px 8px;font-size:11px;font-weight:800;color:var(--txth);text-transform:uppercase;letter-spacing:.07em">Tu ubicación</div>
@@ -3210,6 +3244,34 @@ body{
           </div>
         </div>
         <!-- Apariencia -->
+        <div style="padding:8px 20px 8px;font-size:11px;font-weight:800;color:var(--txth);text-transform:uppercase;letter-spacing:.07em">Apariencia</div>
+        <div style="margin:0 20px 16px;border-radius:18px;background:var(--white);border:1px solid var(--cream);box-shadow:var(--sh-sm);overflow:hidden">
+          <div style="padding:14px 16px">
+            <div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px">Tema de la aplicación</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px" id="themeOptions">
+              <!-- Automático -->
+              <div id="themeAuto" onclick="setTheme('auto')" style="border-radius:14px;border:2px solid var(--v500);background:var(--v50);padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s">
+                <div style="font-size:22px;margin-bottom:4px">⚙️</div>
+                <div style="font-size:11px;font-weight:700;color:var(--v500)">Auto</div>
+                <div style="font-size:10px;color:var(--txth);margin-top:2px">Sistema</div>
+              </div>
+              <!-- Claro -->
+              <div id="themeLight" onclick="setTheme('light')" style="border-radius:14px;border:2px solid var(--cream);background:var(--white);padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s">
+                <div style="font-size:22px;margin-bottom:4px">☀️</div>
+                <div style="font-size:11px;font-weight:700;color:var(--txth)">Claro</div>
+                <div style="font-size:10px;color:var(--txth);margin-top:2px">Siempre</div>
+              </div>
+              <!-- Oscuro -->
+              <div id="themeDark" onclick="setTheme('dark')" style="border-radius:14px;border:2px solid var(--cream);background:var(--white);padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s">
+                <div style="font-size:22px;margin-bottom:4px">🌙</div>
+                <div style="font-size:11px;font-weight:700;color:var(--txth)">Oscuro</div>
+                <div style="font-size:10px;color:var(--txth);margin-top:2px">Siempre</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cuenta -->
         <div style="padding:8px 20px 8px;font-size:11px;font-weight:800;color:var(--txth);text-transform:uppercase;letter-spacing:.07em">Cuenta</div>
         <div style="margin:0 20px 16px;border-radius:18px;background:var(--white);border:1px solid var(--cream);box-shadow:var(--sh-sm);overflow:hidden">
           <div class="menu-row" onclick="goTo('sEditProfile')" style="border-bottom:1px solid var(--cream)">
@@ -4336,6 +4398,7 @@ const TAB_MAP={home:'sHome',diag:'sDiag',store:'sStore',lib:'sLib',user:'sUser'}
 const ROOT_SCREENS=new Set(['sHome','sDiag','sStore','sLib','sUser']);
 
 function goTo(id){
+  if(id==='sConfig') setTimeout(_updateThemeUI, 50);
   if(id==='sAddPlant'){resetWizard();}
   // Clear ALL stale 'behind' classes so only ONE predecessor exists at a time
   document.querySelectorAll('#screens .screen.behind').forEach(s=>s.classList.remove('behind'));
@@ -4419,7 +4482,8 @@ function earnXP(n){
   const lbl=document.getElementById('xpLabel');
   if(fill) fill.style.width=(S.xp/S.xpMax*100)+'%';
   if(lbl) lbl.textContent=S.xp+' / '+S.xpMax+' XP';
-  toast('✨ +'+n+' XP');
+  // XP earned silently — toast only on tasks, not on navigation
+  // toast('✨ +'+n+' XP');  // removed to reduce notification noise
 }
 
 /* ════════════════════════════════════════
@@ -4478,6 +4542,7 @@ function finishObCity(){
 }
 
 function launchApp(){
+  initTheme();
   document.getElementById('obScreen').style.display='none';
   const inner=document.getElementById('appInner');
   inner.style.display='flex';
@@ -4505,6 +4570,7 @@ function dismissAlertAndDiag(){
 }
 
 function renderHome(){
+  _updateThemeUI();
   const ts=document.getElementById('taskSection');
   if(ts&&S.tasks.some(t=>!t.done)){ts.style.display='';ts.style.opacity='1';}
   renderTasks();renderPlantGrid();
@@ -4512,11 +4578,7 @@ function renderHome(){
   const urgentUnread=(S.smartAlerts||[]).filter(a=>a.unread&&!a.dismissed&&a.level==='err').length;
   const bellDot=document.getElementById('bellDot');
   if(bellDot) bellDot.style.display=urgentUnread>0?'block':'none';
-  // Semáforo — only when there are plants that need attention
-  const hasCrit=S.plants.some(p=>p.status==='err'||p.status==='warn');
-  const semRow=document.getElementById('semRow');
-  if(semRow){semRow.style.display=hasCrit?'flex':'none';if(hasCrit)renderSem();}
-  // Alert card — single line, single plant
+  // Alert card — single urgent notice
   const critPlant=S.plants.find(p=>p.status==='err');
   const alertEl=document.getElementById('homeAlert');
   if(critPlant&&!critPlant.alertDismissed){
@@ -4529,6 +4591,42 @@ function renderHome(){
   document.getElementById('greetingEl').textContent=(h<12?'Buenos días, ':h<18?'Hola, ':'Buenas noches, ')+S.userName+' 🌿';
   document.getElementById('streakEl').textContent=S.streak>1?'🔥 '+S.streak+' días seguidos':S.streak===1?'Un día de racha — sigue así 🌱':'Hoy es un buen día para empezar 🌱';
   document.getElementById('jardinCount').textContent=S.plants.length+' plantas';
+  // Garden mood — narrative bar (replaces semáforo chips)
+  renderGardenMood();
+}
+
+function renderGardenMood(){
+  const dot=document.getElementById('gardenMoodDot');
+  const text=document.getElementById('gardenMoodText');
+  const link=document.getElementById('gardenMoodLink');
+  if(!dot||!text) return;
+  const err=S.plants.filter(p=>p.status==='err');
+  const warn=S.plants.filter(p=>p.status==='warn');
+  const ok=S.plants.filter(p=>p.status==='ok');
+  const allDone=S.tasks.every(t=>t.done);
+  if(err.length>0){
+    dot.style.background='var(--err)';
+    dot.style.animation='pulseDanger 1.8s ease-in-out infinite';
+    text.textContent=err[0].name+' necesita tu ayuda hoy';
+    if(link){link.style.display='';link.textContent='Diagnosticar →';link.onclick=()=>goToTab('diag');}
+  } else if(warn.length>0){
+    dot.style.background='var(--warn)';
+    dot.style.boxShadow='0 0 0 3px rgba(135,82,0,.15)';
+    text.textContent=warn[0].name+' necesita riego pronto';
+    if(link){link.style.display='';link.textContent='Ver →';link.onclick=()=>openProfile(warn[0].id);}
+  } else if(allDone&&S.tasks.length>0){
+    dot.style.background='var(--ok)';
+    dot.style.boxShadow='0 0 0 3px rgba(24,122,73,.15)';
+    text.textContent='Todo al día — tus plantas están bien cuidadas';
+    if(link) link.style.display='none';
+  } else {
+    dot.style.background='var(--ok)';
+    dot.style.boxShadow='none';
+    const h=new Date().getHours();
+    const msgs=h<12?['Una mañana perfecta para revisar tu jardín']:h<18?['Tus plantas están esperando tu visita']:['Buenas noches — tu jardín descansa bien'];
+    text.textContent=msgs[0];
+    if(link) link.style.display='none';
+  }
 }
 function renderSem(){
   const ok=S.plants.filter(p=>p.status==='ok').length;
@@ -4607,14 +4705,14 @@ function completeTask(id){
     },280);
   }
   earnXP(10);
-  const msgs={water:'💧 ¡'+t.plant+' regada! Tu planta te lo agradece 🌱',fertilize:'🌱 ¡'+t.plant+' fertilizada! Un gran cuidado. +10 XP',alert:'✅ '+t.plant+' revisada — ¡bien hecho! +10 XP'};
+  const msgs={water:'💧 '+t.plant+' regada — lo notará mañana 🌱',fertilize:'🌱 '+t.plant+' nutrida — vas a ver la diferencia. +10 XP',alert:'✅ '+t.plant+' revisada — ese cuidado importa. +10 XP'};
   toast(msgs[t.type]||'✅ ¡'+t.plant+' cuidada! +10 XP');
 }
 function renderPlantGrid(){
   const grid=document.getElementById('plantGrid');
   if(!grid) return;
   const statusDot={ok:'ok',warn:'warn',err:'err'};
-  const badge={ok:'✓ Sana',warn:'💧 Regar hoy',err:'⚠ Necesita ayuda'};
+  const badge={ok:'✓ Bien cuidada',warn:'💧 Necesita riego',err:'⚠ Pide ayuda'};
   const badgeBg={ok:'var(--ok-bg)',warn:'var(--warn-bg)',err:'var(--err-bg)'};
   const badgeColor={ok:'var(--ok)',warn:'var(--warn)',err:'var(--err)'};
   grid.innerHTML=S.plants.map((p,i)=>`
@@ -7149,11 +7247,12 @@ window.addEventListener('load',()=>{
    NUEVO COMPROMISO — WIZARD JS
 ════════════════════════════════════════ */
 // Datos de normas sociales por planta+cuidado
-const NC_NUDGE={
-  'Monstera':{water:{pct:'81%',msg:'de jardineras con Monstera en Bogotá se comprometen a regarla al menos 2 veces por semana.'},fert:{pct:'67%',msg:'la fertilizan una vez al mes en temporada de crecimiento.'},prune:{pct:'54%',msg:'la podan cada 2 meses para controlar el tamaño.'},check:{pct:'72%',msg:'hacen revisión visual mensual para detectar plagas a tiempo.'}},
-  'Rosa':{water:{pct:'92%',msg:'de usuarias con Rosa activan alerta de riego — es la planta más sensible a la sequía.'},check:{pct:'88%',msg:'la inspeccionan semanalmente. Con oídio activo, la revisión frecuente es clave.'},fert:{pct:'75%',msg:'la fertilizan cada 15 días en temporada de floración.'}},
-  'Cactus':{water:{pct:'73%',msg:'riegan su cactus solo 1 vez por semana o menos. Menos es más.'},fert:{pct:'49%',msg:'lo fertilizan en primavera y verano únicamente.'},prune:{pct:'31%',msg:'realizan poda de limpieza una vez al año.'}},
-  'Pothos':{water:{pct:'77%',msg:'riegan su Pothos cada 3–5 días. Es tolerante pero agradece la regularidad.'},fert:{pct:'58%',msg:'lo fertilizan una vez al mes en temporada cálida.'},check:{pct:'64%',msg:'lo revisan mensualmente. Los Pothos son susceptibles a cochinilla.'}}
+// NC_NUDGE replaced by warm plant-guidance (no social-proof percentages)
+const NC_GUIDE={
+  'Monstera':{water:'Las Monsteras prosperan con suelo húmedo pero bien drenado. Riega cuando los primeros 3 cm de tierra estén secos.',fert:'En temporada de crecimiento (primavera–verano), un abono mensual la mantiene vigorosa.',prune:'La poda de hojas amarillas o dañadas la ayuda a concentrar energía en las sanas.',check:'Revisa el envés de las hojas — ahí es donde los ácaros suelen aparecer primero.'},
+  'Rosa':{water:'Las rosas son las más expresivas: sus hojas te dicen cuándo tienen sed. Riega profundo y menos frecuente.',check:'Con oídio activo, una revisión semanal te permite actuar antes de que se extienda.',fert:'En temporada de floración, un fertilizante con más potasio realza los colores.'},
+  'Cactus':{water:'En cactus, menos es más. Riega solo cuando la tierra esté completamente seca y el clima sea seco.',fert:'Primavera y verano son sus meses activos — es el momento ideal para fertilizar.',prune:'Una limpieza anual de partes secas o dañadas es todo lo que necesita.'},
+  'Pothos':{water:'El Pothos tolera el olvido, pero agradece la regularidad. Cada 3–5 días suele ser ideal.',fert:'Una vez al mes en temporada cálida es suficiente para mantenerlo exuberante.',check:'Revisa el tallo y las hojas de vez en cuando — los Pothos atraen cochinilla.'}
 };
 // Recomendaciones de frecuencia por planta+cuidado
 const NC_FREQ_REC={
@@ -7196,14 +7295,12 @@ function ncSelCare(el,name,icon,key){
   el.classList.add('sel');
   const btn=document.getElementById('ncBtn1');
   if(btn){btn.disabled=false;btn.style.opacity='1';}
-  // Mostrar norma social
-  const nudge=NC_NUDGE[NC.plant&&NC.plant.name]?.[key];
-  const nudgeEl=document.getElementById('ncNudge1');
-  if(nudge&&nudgeEl){
-    nudgeEl.style.display='block';
-    document.getElementById('ncNudgePct').textContent=nudge.pct;
-    document.getElementById('ncNudgeMsg').textContent=' '+nudge.msg;
-  }
+  // Mostrar guía cálida contextual (sin norma social)
+  const guide=NC_GUIDE[NC.plant&&NC.plant.name]?.[key];
+  const guideEl=document.getElementById('ncGuide1');
+  const guideText=document.getElementById('ncGuideText');
+  if(guide&&guideEl&&guideText){guideEl.style.display='flex';guideText.textContent=guide;}
+  else if(guideEl){guideEl.style.display='none';}
   // Pre-seleccionar frecuencia recomendada
   const rec=NC_FREQ_REC[NC.plant&&NC.plant.name]?.[key];
   if(rec){
@@ -7253,13 +7350,7 @@ function ncUpdatePreview(){
   document.getElementById('ncSumCare').textContent=(NC.careIcon||'')+' '+(NC.care||'—');
   document.getElementById('ncSumFreq').textContent=NC.freq||'—';
   // Norma social de cierre
-  const nudge=NC_NUDGE[NC.plant&&NC.plant.name]?.[NC.careKey];
-  const normEl=document.getElementById('ncSocialNorm');
-  const normText=document.getElementById('ncSocialNormText');
-  if(nudge&&normEl&&normText){
-    normEl.style.display='flex';
-    normText.textContent=nudge.pct+' '+nudge.msg+' Estás en buena compañía.';
-  }
+  // Social norm removed — confirmation uses warm plant message only
 }
 
 function ncNext(){
@@ -7292,11 +7383,12 @@ function ncRender(){
   // Back button opacity
   const bb=document.getElementById('ncBackBtn');
   if(bb) bb.style.opacity=NC.step===0?'0.4':'1';
-  // Si step==1, mostrar nudge si ya tenemos datos
-  if(NC.step===1&&NC.plant){
-    const nudge=NC_NUDGE[NC.plant.name]?.[NC.careKey];
-    const nudgeEl=document.getElementById('ncNudge1');
-    if(nudge&&nudgeEl){nudgeEl.style.display='block';document.getElementById('ncNudgePct').textContent=nudge.pct;document.getElementById('ncNudgeMsg').textContent=' '+nudge.msg;}
+  // Show warm guide on step 1 if data available
+  if(NC.step===1&&NC.plant&&NC.careKey){
+    const guide=NC_GUIDE[NC.plant.name]?.[NC.careKey];
+    const guideEl=document.getElementById('ncGuide1');
+    const guideText=document.getElementById('ncGuideText');
+    if(guide&&guideEl&&guideText){guideEl.style.display='flex';guideText.textContent=guide;}
   }
 }
 
@@ -7335,8 +7427,8 @@ function ncConfirmar(){
   }
   // Fill success content
   const plantName=(NC.plant&&NC.plant.name)||'tu planta';
-  document.getElementById('ncOkTitle').textContent='Compromiso creado — '+(NC.plant&&NC.plant.icon||'🌿')+' '+plantName;
-  document.getElementById('ncOkSub').textContent='Tu compromiso de "'+NC.care+'" para tu '+plantName+' ('+NC.freq+') ya está activo. '+(document.getElementById('ncTog1').checked?'Te avisamos cuando toque.':'');
+  document.getElementById('ncOkTitle').textContent=(NC.plant&&NC.plant.icon||'🌿')+' '+plantName+' — compromiso activo';
+  document.getElementById('ncOkSub').textContent=NC.care+' · '+NC.freq+' — comenzamos ahora mismo.'+(document.getElementById('ncTog1').checked?' Te avisamos cuando llegue el momento.':'');
 
   // Dots — numbered circles matching screenshot style
   const freqDotCounts={'Cada día':7,'3 veces/semana':3,'2 veces/semana':2,'1 vez/semana':1,'Cada 2 semanas':2,'1 vez/mes':1};
@@ -7352,10 +7444,10 @@ function ncConfirmar(){
   // Warm, plant-specific message — no statistics
   const normEl=document.getElementById('ncOkNorm');
   const plantMessages={
-    'Monstera':'Las Monsteras prosperan con constancia. Tu compromiso es justo lo que necesita.',
-    'Rosa':'Las rosas florecen para quienes las recuerdan. Bien hecho.',
-    'Cactus':'Hasta el cactus agradece un poco de atención regular. ¡Adelante!',
-    'Pothos':'Los Pothos son resilientes, pero con tu cuidado van a brillar.'
+    'Monstera':'La Monstera tiene memoria — responde a la constancia más que a ninguna otra cosa. Este compromiso le va a notar.',
+    'Rosa':'Las rosas florecen para quien las recuerda. Con este compromiso activo, tu Rosa tiene todo lo que necesita.',
+    'Cactus':'El secreto del cactus no es el descuido — es el ritmo. Con este compromiso tienes ese ritmo perfecto.',
+    'Pothos':'El Pothos es fiel pero agradecido. Un cuidado regular como este es exactamente lo que lo hace prosperar.'
   };
   if(normEl){
     const plantName=NC.plant&&NC.plant.name;
@@ -7372,7 +7464,7 @@ function ncReset(){
   document.getElementById('ncsOk').classList.remove('active');
   document.querySelectorAll('.nc-care-opt,.nc-freq-opt,.nc-plant-card').forEach(e=>e.classList.remove('sel'));
   ['ncBtn0','ncBtn1','ncBtn2'].forEach(id=>{const b=document.getElementById(id);if(b){b.disabled=true;b.style.opacity='.4';}});
-  const nudgeEl=document.getElementById('ncNudge1');if(nudgeEl)nudgeEl.style.display='none';
+  const guideEl=document.getElementById('ncGuide1');if(guideEl)guideEl.style.display='none';
   const freqRecEl=document.getElementById('ncFreqRec');if(freqRecEl)freqRecEl.style.display='none';
   // Restore wizard header
   const ncHeader=document.querySelector('#sNuevoCompromiso > div:first-child');
@@ -7392,9 +7484,10 @@ function renderCompromisos(){
   if(list.length===0){
     el.innerHTML=`
       <div style="text-align:center;padding:48px 20px 24px">
-        <div style="font-size:56px;margin-bottom:16px">🎯</div>
-        <div style="font-family:var(--ff);font-size:20px;font-weight:700;color:var(--txt);margin-bottom:8px">Sin compromisos aún</div>
-        <p class="sub" style="margin-bottom:24px">Crea un compromiso para empezar a hacer seguimiento a tus cuidados.</p>
+        <div style="font-size:60px;margin-bottom:18px;animation:floatUp 3.5s ease-in-out infinite">🌱</div>
+        <div style="font-family:var(--ff);font-size:20px;font-weight:700;color:var(--txt);margin-bottom:8px">Tu jardín te espera</div>
+        <p class="sub" style="margin-bottom:6px;max-width:220px;margin-left:auto;margin-right:auto">Crear un compromiso es la forma más simple de cuidar tus plantas sin olvidarlo.</p>
+        <p class="sub" style="margin-bottom:24px;font-size:11px">Toma 30 segundos. Lo hacemos juntos.</p>
         <button class="btn btn-primary" onclick="goTo('sNuevoCompromiso')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Crear mi primer compromiso
@@ -7425,6 +7518,53 @@ function renderCompromisos(){
       Añadir otro compromiso
     </button>`;
 }
+
+
+/* ════════════════════════════════════════
+   THEME SWITCHER — Claro / Oscuro / Auto
+════════════════════════════════════════ */
+let _currentTheme = 'auto';
+
+function setTheme(mode) {
+  _currentTheme = mode;
+  const body = document.body;
+  body.classList.remove('theme-light','theme-dark');
+  if (mode === 'light') body.classList.add('theme-light');
+  else if (mode === 'dark') body.classList.add('theme-dark');
+  // else 'auto' = follow system (media query handles it)
+  _updateThemeUI();
+  // Persist in session
+  try { sessionStorage.setItem('violeta_theme', mode); } catch(e){}
+  const labels = {auto:'Sistema', light:'Modo claro activado ☀️', dark:'Modo oscuro activado 🌙'};
+  toast(labels[mode]);
+}
+
+function _updateThemeUI() {
+  const opts = {auto:'themeAuto', light:'themeLight', dark:'themeDark'};
+  Object.entries(opts).forEach(([mode, id]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const active = mode === _currentTheme;
+    el.style.borderColor = active ? 'var(--v500)' : 'var(--cream)';
+    el.style.background = active ? 'var(--v50)' : 'var(--white)';
+    el.querySelector('div:nth-child(2)').style.color = active ? 'var(--v500)' : 'var(--txth)';
+  });
+}
+
+function initTheme() {
+  try {
+    const saved = sessionStorage.getItem('violeta_theme') || 'auto';
+    _currentTheme = saved;
+    const body = document.body;
+    body.classList.remove('theme-light','theme-dark');
+    if (saved === 'light') body.classList.add('theme-light');
+    else if (saved === 'dark') body.classList.add('theme-dark');
+  } catch(e){}
+  _updateThemeUI();
+}
+
+// Init on load and whenever settings opens
+document.addEventListener('DOMContentLoaded', initTheme);
 
 </script>
 </body>
